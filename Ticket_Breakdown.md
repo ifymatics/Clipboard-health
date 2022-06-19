@@ -1,4 +1,5 @@
 # Ticket Breakdown
+
 We are a staffing company whose primary purpose is to book Agents at Shifts posted by Facilities on our platform. We're working on a new feature which will generate reports for our client Facilities containing info on how many hours each Agent worked in a given quarter by summing up every Shift they worked. Currently, this is how the process works:
 
 - Data is saved in the database in the Facilities, Agents, and Shifts tables
@@ -9,10 +10,15 @@ We are a staffing company whose primary purpose is to book Agents at Shifts post
 
 **Currently, the id of each Agent on the reports we generate is their internal database id. We'd like to add the ability for Facilities to save their own custom ids for each Agent they work with and use that id when generating reports for them.**
 
-
 Based on the information given, break this ticket down into 2-5 individual tickets to perform. Provide as much detail for each ticket as you can, including acceptance criteria, time/effort estimates, and implementation details. Feel free to make informed guesses about any unknown details - you can't guess "wrong".
-
 
 You will be graded on the level of detail in each ticket, the clarity of the execution plan within and between tickets, and the intelligibility of your language. You don't need to be a native English speaker, but please proof-read your work.
 
 ## Your Breakdown Here
+
+1. Alter the `Agent table`, add a `unique_id` column and default the value to `NULL`
+2. Before calling the `generateReport` ,create another function `updateAgentUniqueId`which should be called to update the `unique_id` column on the Agent table. Ensure that step 1 above has been completed Before calling this function.
+
+Implementation of `updateAgentUniqueId`: It should receive an array of agents internal ids, then generate a unique ids for each agent using uuid() from uuidv4 package.
+Then it should update the `Agent table` and return the updated agents with their unique_ids.
+Finally, the `generateReport` should be called.
